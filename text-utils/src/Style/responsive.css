@@ -1,0 +1,14 @@
+@media only screen and (max-width:700px){
+    .main button{
+        width: 35vw;
+    }
+    .about_container{
+        height: auto;
+    }
+    .button{
+        display: grid;
+        justify-content: center;
+        align-items: center;
+        grid-template-columns: auto auto;
+    }
+}
