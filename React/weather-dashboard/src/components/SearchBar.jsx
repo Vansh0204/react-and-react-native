@@ -63,6 +63,33 @@ const SearchBar = ({ onCitySelect }) => {
     setSuggestions([]);
   };
 
+  const fetchWeatherForCoords = async (lat, lon) => {
+    try {
+      const response = await axios.get(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${
+          import.meta.env.VITE_OPEN_WEATHER_APP_KEY
+        }&units=metric`
+      );
+      onCitySelect(response.data);
+    } catch (error) {
+      console.error("Error fetching weather data by coordinates:", error);
+    }
+  };
+
+  const handleUseMyLocation = () => {
+    if (!("geolocation" in navigator)) return;
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude, longitude } = pos.coords;
+        fetchWeatherForCoords(latitude, longitude);
+      },
+      (err) => {
+        console.warn("Geolocation permission denied or unavailable", err);
+      },
+      { enableHighAccuracy: true, timeout: 8000, maximumAge: 600000 }
+    );
+  };
+
   return (
     <Box mt={5} p={3} sx={{ maxWidth: 600, mx: "auto" }}>
       <Box textAlign="center" mb={3}>
@@ -88,6 +115,9 @@ const SearchBar = ({ onCitySelect }) => {
           onClick={handleSearchClick}
         >
           Search
+        </Button>
+        <Button variant="outlined" color="secondary" onClick={handleUseMyLocation}>
+          Use My Location
         </Button>
       </Box>
       {query !== "" && suggestions.length === 0 && (
