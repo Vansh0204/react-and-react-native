@@ -3,6 +3,9 @@ import SearchBar from "./components/SearchBar";
 import WeatherCard from "./components/WeatherCard";
 import Forecast from "./components/Forecast";
 import TemperatureChart from "./components/TemperatureChart";
+import PrecipWindChart from "./components/PrecipWindChart";
+import MapPanel from "./components/MapPanel";
+import AlertsPanel from "./components/AlertsPanel";
 import Footer from "./components/Footer";
 import {
   Container,
@@ -80,10 +83,19 @@ const App = () => {
                 <WeatherCard city={selectedCity} />
               </Grid>
               <Grid item xs={12} sm={12} md={12}>
+                <AlertsPanel city={selectedCity} />
+              </Grid>
+              <Grid item xs={12} sm={12} md={12}>
+                <MapPanel city={selectedCity} />
+              </Grid>
+              <Grid item xs={12} sm={12} md={12}>
                 <Forecast city={selectedCity} />
               </Grid>
               <Grid item xs={12} sm={12} md={12}>
                 <TemperatureChart city={selectedCity} />
+              </Grid>
+              <Grid item xs={12} sm={12} md={12}>
+                <PrecipWindChart city={selectedCity} />
               </Grid>
             </Grid>
           </Box>
